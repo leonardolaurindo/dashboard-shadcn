@@ -8,12 +8,12 @@ import React from 'react'
 
 type Props = {}
 
-export type Payment = {
+type Payment = {
     category: string;
     value: string | number | boolean
 }
 
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "category",
         header: "Categoria",
@@ -24,7 +24,7 @@ export const columns: ColumnDef<Payment>[] = [
     }
 ]
 
-export const data: Payment[] = [
+const data: Payment[] = [
     {
         category: "Conta",
         value: true,

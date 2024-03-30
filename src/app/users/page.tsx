@@ -7,14 +7,14 @@ import React from 'react'
 
 type Props = {}
 
-export type Payment = {
+type Payment = {
     name: string;
     email: string;
     lastOrder: string;
     method: string;
 }
 
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "name",
         header: "Nome",
@@ -45,7 +45,7 @@ export const columns: ColumnDef<Payment>[] = [
     }
 ]
 
-export const data: Payment[] = [
+const data: Payment[] = [
     {
         name: "John Doe",
         email: "john@email.com",
