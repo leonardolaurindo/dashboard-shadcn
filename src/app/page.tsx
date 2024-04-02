@@ -9,25 +9,33 @@ const cardData: CardProps[] = [
     label: "Receita Total",
     amount: "R$45.231,89",
     description: "+20,1% acima do mês passado",
-    icon: DollarSign
+    icon: DollarSign,
+    style: "border-hunas",
+    color: "text-hunas"
   },
   {
     label: "Inscrições",
     amount: "+2350",
     description: "+180,2% acima do mês passado",
-    icon: Users
+    icon: Users,
+    style: "border-orange-200",
+    color: "hunas"
   },
   {
     label: "Sales",
     amount: "+12.234",
     description: "+19% acima do mês passado",
-    icon: CreditCard
+    icon: CreditCard,
+    style: "border-orange-200",
+    color: "hunas"
   },
   {
     label: "Ativos Agora",
     amount: "+573",
     description: "+180,2% acima do mês passado",
-    icon: Activity
+    icon: Activity,
+    style: "border-orange-200",
+    color: "hunas"
   },
 ];
 
@@ -68,6 +76,8 @@ export default function Home() {
             description={d.description}
             icon={d.icon}
             label={d.label}
+            style={d.style}
+            color={d.color}
           />
         )}
       </section>

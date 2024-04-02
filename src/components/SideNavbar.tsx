@@ -4,19 +4,19 @@ import React, { useState } from 'react'
 import { Nav } from './ui/nav'
 
 type Props = {}
+import Image from 'next/image'
+import Logo01 from '../../public/LOGO-001.png'
+import Logo02 from '../../public/LOGO-002.png'
 
 import {
+    BookUp2,
     ChevronRight,
-    LayoutDashboard,
-    Settings,
-    ShoppingCart,
-    UsersRound,
+    CircleAlert,
+    CircleDollarSign,
+    LogOut,
 } from "lucide-react"
 import { Button } from './ui/button'
 import { useWindowWidth } from '@react-hook/window-size'
-
-
-
 
 export default function SideNavbar({ }: Props) {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -27,43 +27,63 @@ export default function SideNavbar({ }: Props) {
     function toggleSidebar() {
         setIsCollapsed(!isCollapsed);
     }
-
     return (
         <>
-            <div className='relative min-w-[80px] border-r pl-3 pr-5 pb-10 pt-24'>
+            <div className='relative min-w-[100px] border-r pl-1 pr-8 pb-10 pt-[40px]'>
+                {/* Logos */}
+                {isCollapsed ?
+                    <div className='flex justify-center'>
+                        <Image
+                            src={Logo01}
+                            alt='Logo 01'
+                            width={20}
+                        />
+                    </div>
+                    :
+                    <div>
+                        <Image
+                            src={Logo02}
+                            alt='Logo 02'
+                            width={90}
+                        />
+
+                    </div>
+                }
+                {/* Botão de Esconder Menu */}
                 {!mobileWidth && (
-                    <div className='absolute right-[-20px] top-7'>
+                    <div className='absolute right-[-20px] top-2'>
                         <Button onClick={toggleSidebar} variant='secondary' className='rounded-full p-2'>
                             <ChevronRight />
                         </Button>
                     </div>
                 )}
+                {/* Botões da Nav */}
                 <Nav
                     isCollapsed={mobileWidth ? true : isCollapsed}
                     links={[
                         {
-                            title: "Dashboard",
+                            title: "Dividas",
                             href: "/",
-                            icon: LayoutDashboard,
-                            variant: "default",
+                            icon: CircleDollarSign,
+                            variant: "hunas",
                         },
                         {
-                            title: "Users",
-                            href: "/users",
-                            icon: UsersRound,
-                            variant: "ghost",
+                            title: "Melhor Taxa",
+                            href: "/bestrate",
+                            icon: BookUp2,
+                            variant: "hunasHover",
                         },
                         {
-                            title: "Orders",
-                            href: "/orders",
-                            icon: ShoppingCart,
-                            variant: "ghost",
+                            title: "Juros Abusivos",
+                            href: "/abusive",
+                            icon: CircleAlert,
+                            variant: "hunasHover",
                         },
                         {
-                            title: "Settings",
-                            href: "/settings",
-                            icon: Settings,
-                            variant: "ghost",
+                            title: "Sair",
+                            href: "/logout",
+                            icon: LogOut,
+                            variant: "hunasHover",
                         },
                     ]}
                 />
