@@ -1,43 +1,59 @@
 import BarChart from "@/components/BarChart";
-import Card, { CardContent, CardProps } from "@/components/Card";
+import Card, { CardContent, CardDebit, CardDebitProps, CardProps } from "@/components/Card";
 import PageTitle from "@/components/PageTitle";
 import SalesCard, { SalesProps } from "@/components/SalesCard";
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import { Activity, CreditCard, DollarSign, CalendarDays } from "lucide-react";
 
 const cardData: CardProps[] = [
   {
-    label: "Receita Total",
-    amount: "R$45.231,89",
-    description: "+20,1% acima do mês passado",
+    label: "Total em Dívidas",
+    amount: "R$9.231,89",
+    description: "Uma diminuição de 0,8%",
     icon: DollarSign,
     style: "border-hunas",
     color: "text-hunas"
   },
   {
-    label: "Inscrições",
-    amount: "+2350",
-    description: "+180,2% acima do mês passado",
-    icon: Users,
-    style: "border-orange-200",
-    color: "hunas"
+    label: "Total em Parcelas",
+    amount: "R$ 784,35",
+    description: "3,2% do total das dividsa",
+    icon: CalendarDays,
+    style: "border-orange-400",
+    color: "text-orange-400"
   },
   {
-    label: "Sales",
-    amount: "+12.234",
-    description: "+19% acima do mês passado",
+    label: "Parcelas Restantes",
+    amount: "32",
+    description: "Você já quitou 30%",
     icon: CreditCard,
-    style: "border-orange-200",
-    color: "hunas"
+    style: "border-lime-600",
+    color: "text-lime-600"
   },
   {
-    label: "Ativos Agora",
-    amount: "+573",
-    description: "+180,2% acima do mês passado",
+    label: "Mais um Card",
+    amount: "+00",
+    description: "+00,0% mais um dado",
     icon: Activity,
-    style: "border-orange-200",
-    color: "hunas"
+    style: "border-rose-300",
+    color: "text-rose-600"
   },
 ];
+
+const userDebidData: CardDebitProps[] = [
+  {
+    title: "Nome da Divida",
+    icon: CreditCard,
+    contractedValue: "R$ 30.000,00",
+    parcelValue: "R$ 879,32",
+    remaningValue: "13.400,32",
+    totalMonth: 46,
+    remainingMonths: 19,
+    feesRate: "1,75%",
+    amortSystem: "SAC",
+    totalFees: "R$ 38,574,42"
+  }
+
+]
 
 const userSalesData: SalesProps[] = [
   {
@@ -80,6 +96,24 @@ export default function Home() {
             color={d.color}
           />
         )}
+      </section>
+      <section>
+
+        {userDebidData.map((d, i) => (
+          <CardDebit key={i}
+            title={d.title}
+            icon={d.icon}
+            contractedValue={d.contractedValue}
+            parcelValue={d.parcelValue}
+            remaningValue={d.remaningValue}
+            totalMonth={d.totalMonth}
+            remainingMonths={d.remainingMonths}
+            feesRate={d.feesRate}
+            amortSystem={d.amortSystem}
+            totalFees={d.totalFees}
+          />
+        ))}
+
       </section>
       <section className="grid grid-cols-1 gap-4 transition-all
       lg:grid-cols-2">
