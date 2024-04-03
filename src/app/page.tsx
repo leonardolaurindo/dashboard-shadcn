@@ -1,8 +1,6 @@
-import BarChart from "@/components/BarChart";
-import Card, { CardContent, CardDebit, CardDebitProps, CardProps } from "@/components/Card";
+import Card, { CardContent, CardDebit, CardDebitProps, CardParcels, CardParcelsProps, CardProps } from "@/components/Cards";
 import PageTitle from "@/components/PageTitle";
-import SalesCard, { SalesProps } from "@/components/SalesCard";
-import { Activity, CreditCard, DollarSign, CalendarDays } from "lucide-react";
+import { Activity, CreditCard, DollarSign, CalendarDays, HandCoins } from "lucide-react";
 
 const cardData: CardProps[] = [
   {
@@ -51,31 +49,46 @@ const userDebidData: CardDebitProps[] = [
     feesRate: "1,75%",
     amortSystem: "SAC",
     totalFees: "R$ 38,574,42"
+  },
+  {
+    title: "Nome da Divida",
+    icon: CreditCard,
+    contractedValue: "R$ 30.000,00",
+    parcelValue: "R$ 879,32",
+    remaningValue: "13.400,32",
+    totalMonth: 46,
+    remainingMonths: 19,
+    feesRate: "1,75%",
+    amortSystem: "SAC",
+    totalFees: "R$ 38,574,42"
   }
 
 ]
 
-const userSalesData: SalesProps[] = [
+
+
+const parcelsData: CardParcelsProps[] = [
   {
-    name: "Olivia Martin",
-    email: "olivia.martin@email.com",
-    saleAmout: "R$1.999,00"
+    debtName: "Financiamento Casa",
+    debtValue: 387.37,
+    debtMonth: 12,
+    remaningMonth: 48,
+    icon: HandCoins,
   },
   {
-    name: "Jackson Lee",
-    email: "jackson.lee@email.com",
-    saleAmout: "R$1.999,00"
+    debtName: "Financiamento Moto",
+    debtValue: 387.37,
+    debtMonth: 12,
+    remaningMonth: 48,
+    icon: HandCoins,
   },
   {
-    name: "Isabella Nguyen",
-    email: "isabella.nguyen@email.com",
-    saleAmout: "R$39,00"
-  },
-  {
-    name: "William Kim",
-    email: "will@email.com",
-    saleAmout: "R$299,00"
-  },
+    debtName: "Viagem",
+    debtValue: 387.37,
+    debtMonth: 12,
+    remaningMonth: 48,
+    icon: HandCoins,
+  }
 ]
 
 export default function Home() {
@@ -97,46 +110,37 @@ export default function Home() {
           />
         )}
       </section>
-      <section>
-
-        {userDebidData.map((d, i) => (
-          <CardDebit key={i}
-            title={d.title}
-            icon={d.icon}
-            contractedValue={d.contractedValue}
-            parcelValue={d.parcelValue}
-            remaningValue={d.remaningValue}
-            totalMonth={d.totalMonth}
-            remainingMonths={d.remainingMonths}
-            feesRate={d.feesRate}
-            amortSystem={d.amortSystem}
-            totalFees={d.totalFees}
-          />
-        ))}
-
-      </section>
-      <section className="grid grid-cols-1 gap-4 transition-all
-      lg:grid-cols-2">
-        <CardContent>
-          <p className="p-4 font-semibold">Overview</p>
-          <BarChart />
-        </CardContent>
-        <CardContent className="flex justify-between gap-4">
-          <section>
-            <p>Vendas Recentes</p>
-            <p className="text-sm text-gray-400">Você fez 265 vendas esse mês</p>
-          </section>
-          {userSalesData.map((d, i) => (
-            <SalesCard key={i}
-              email={d.email}
-              name={d.name}
-              saleAmout={d.saleAmout}
+      <section className="grid grid-cols-3 gap-4">
+        <div className="col-span-2">
+          {userDebidData.map((d, i) => (
+            <CardDebit key={i}
+              title={d.title}
+              icon={d.icon}
+              contractedValue={d.contractedValue}
+              parcelValue={d.parcelValue}
+              remaningValue={d.remaningValue}
+              totalMonth={d.totalMonth}
+              remainingMonths={d.remainingMonths}
+              feesRate={d.feesRate}
+              amortSystem={d.amortSystem}
+              totalFees={d.totalFees}
             />
           ))}
+        </div>
+        <CardContent>
+          {parcelsData.map((d, i) =>
+            <CardParcels
+              key={i}
+              icon={d.icon}
+              debtName={d.debtName}
+              debtValue={d.debtValue}
+              debtMonth={d.debtMonth}
+              remaningMonth={d.remaningMonth}
+            />
+          )}
         </CardContent>
-        {/*  */}
-
       </section>
+
     </div>
   );
 }

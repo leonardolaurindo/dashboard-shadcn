@@ -1,16 +1,10 @@
 import { cn } from '@/lib/utils';
 import { Progress } from "@/components/ui/progress"
-import { LucideIcon } from 'lucide-react';
-import { Settings, Pencil, Zap, Trash2 } from "lucide-react";
-import {
-    Menubar,
-    MenubarContent,
-    MenubarItem,
-    MenubarMenu,
-    MenubarShortcut,
-    MenubarTrigger,
-} from "@/components/ui/menubar"
+import { HandCoins, Home, LucideIcon } from 'lucide-react';
+import { Pencil, Zap, Trash2 } from "lucide-react";
 import React from 'react'
+import { Button } from './ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 export type CardProps = {
     label: string;
@@ -32,6 +26,14 @@ export type CardDebitProps = {
     feesRate: string;
     amortSystem: "PRiCE" | "SAC";
     totalFees: string;
+}
+
+export type CardParcelsProps = {
+    debtName: string;
+    debtValue: number;
+    debtMonth: number;
+    remaningMonth: number;
+    icon: LucideIcon;
 }
 
 export default function Card(props: CardProps) {
@@ -59,7 +61,8 @@ export default function Card(props: CardProps) {
 
 export function CardDebit(props: CardDebitProps) {
     return (
-        <CardContent >
+
+        <CardContent className='mb-4' >
             <section className='flex justify-between gap-2'>
                 <div className='flex'>
 
@@ -67,24 +70,43 @@ export function CardDebit(props: CardDebitProps) {
                     <p className="font-semibold pl-2">{props.title}</p>
                 </div>
                 <div>
-                    <Menubar>
-                        <MenubarMenu>
-                            <MenubarTrigger>
-                                <Settings className='w-4 h-4' />
-                            </MenubarTrigger>
-                            <MenubarContent>
-                                <MenubarItem>
-                                    <Zap className='w-4 h-4 mr-2' />Amortizar
-                                </MenubarItem>
-                                <MenubarItem>
-                                    <Pencil className='w-4 h-4 mr-2' />Editar
-                                </MenubarItem>
-                                <MenubarItem>
-                                    <Trash2 className='w-4 h-4 mr-2' />Excluir
-                                </MenubarItem>
-                            </MenubarContent>
-                        </MenubarMenu>
-                    </Menubar>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="outline" size="icon" className='mr-2 text-orange-600'>
+                                    <Zap className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Amortizar</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="outline" size="icon" className='mr-2'>
+                                    <Pencil className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Editar</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="outline" size="icon" className='mr-2'>
+                                    <Trash2 className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Deletar</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+
 
                 </div>
             </section>
@@ -157,6 +179,37 @@ export function CardDebit(props: CardDebitProps) {
                 <Progress value={33} />
             </section>
         </CardContent>
+
+    )
+}
+
+export function CardParcels(props: CardParcelsProps) {
+    return (
+        <section className='grid grid-cols-3 hover:bg-muted rounded-2xl p-2'>
+            <div className='flex col-span-2'>
+                <div className='bg-blend-color-burn'>
+                    <Home className='mt-2 mb-2 mr-1' />
+                </div>
+                <div>
+                    <p>{props.debtName}</p>
+                    <p className='font-light text-muted-foreground text-sm'>Parcela {props.debtMonth} de {props.remaningMonth}</p>
+                </div>
+            </div>
+            <div className='grid justify-items-end'>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button variant="outline" size="icon" className='mr-2'>
+                                <props.icon className="h-4 w-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Pagar</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+            </div>
+        </section>
     )
 }
 
