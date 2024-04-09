@@ -1,16 +1,17 @@
 import { cn } from '@/lib/utils';
 import { Progress } from "@/components/ui/progress"
-import { HandCoins, Home, LucideIcon } from 'lucide-react';
+import { ChevronRight, Dot, HandCoins, Home, LucideIcon } from 'lucide-react';
 import { Pencil, Zap, Trash2 } from "lucide-react";
 import React from 'react'
 import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import { Separator } from './ui/separator';
 
 export type CardProps = {
     label: string;
     icon: LucideIcon;
     amount: string;
-    description: string;
+    description?: string;
     style?: string;
     color?: string;
 }
@@ -33,12 +34,14 @@ export type CardParcelsProps = {
     debtValue: number;
     debtMonth: number;
     remaningMonth: number;
-    icon: LucideIcon;
 }
 
-export default function Card(props: CardProps) {
+export default function CardInfo(props: CardProps) {
     return (
-        <CardContent className={props.style}>
+        <CardContent className={cn(
+            "text-lg",
+            props.style
+        )}>
             <section className='flex justify-between gap-2'>
                 {/* Label */}
                 <p className={cn(
@@ -59,25 +62,46 @@ export default function Card(props: CardProps) {
     )
 }
 
+export function CardInfoSmall(props: CardProps) {
+    return (
+        <CardContent className="flex-row text-md p-3 gap-1">
+            <section className=' justify-between gap-2 w-full '>
+                {/* Label */}
+                <p className="text-lg font-light sm:text-sm lg:text-lg sm:text-clip">{props.label}</p>
+                <div className='flex flex-col gap-1 ml-2'>
+                    <h2 className='text-2xl font-semibold sm:text-sm lg:text-2xl'>{props.amount}</h2>
+                </div>
+            </section>
+            {/* Icon */}
+            <section className='inline-block align-middle mt-2'>
+                <div className={`${props.style} rounded-full p-2`}>
+                    <props.icon className={`${props.color} w-8 h-8 sm:w-6 sm:h-6`} />
+                </div>
+            </section>
+
+        </CardContent >
+    )
+}
+
 export function CardDebit(props: CardDebitProps) {
     return (
-
-        <CardContent className='mb-4' >
-            <section className='flex justify-between gap-2'>
-                <div className='flex'>
+        <CardContent className="mb-4 shadow-md shadow-black/25">
+            <section className='gap-2'>
+                <div className='flex pb-2'>
 
                     <props.icon className="w-6 h-6" />
                     <p className="font-semibold pl-2">{props.title}</p>
                 </div>
-                <div>
+                <div className=''>
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="outline" size="icon" className='mr-2 text-orange-600'>
-                                    <Zap className="h-4 w-4" />
+                                <Button variant="outline" className='transition ease-in-out duration-1000 mr-2 text-hunas hover:bg-white hover:shadow-md hover:shadow-hunas hover:text-hunas
+                    sm:shadow-lg'>
+                                    <Zap className="h-4 w-4" /> <span className='hidden ml-2 sm:inline-block'>Amortizar</span>
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent>
+                            <TooltipContent className='inline-block sm:hidden'>
                                 <p>Amortizar</p>
                             </TooltipContent>
                         </Tooltip>
@@ -85,11 +109,11 @@ export function CardDebit(props: CardDebitProps) {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="outline" size="icon" className='mr-2'>
-                                    <Pencil className="h-4 w-4" />
+                                <Button variant="outline" className='mr-2'>
+                                    <Pencil className="h-4 w-4" /> <span className='hidden ml-2 sm:inline-block'>Editar</span>
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent>
+                            <TooltipContent className='inline-block sm:hidden'>
                                 <p>Editar</p>
                             </TooltipContent>
                         </Tooltip>
@@ -97,22 +121,20 @@ export function CardDebit(props: CardDebitProps) {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="outline" size="icon" className='mr-2'>
-                                    <Trash2 className="h-4 w-4" />
+                                <Button variant="outline" className='mr-2'>
+                                    <Trash2 className="h-4 w- " /> <span className='hidden ml-2 sm:inline-block'>Deletar</span>
                                 </Button>
                             </TooltipTrigger>
-                            <TooltipContent>
+                            <TooltipContent className='inline-block sm:hidden'>
                                 <p>Deletar</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-
-
                 </div>
             </section>
-            <div className='flex justify-between p-3 gap-8'>
-                <section className='flex  w-2/3'>
-                    <div className="grid gap-3 w-full">
+            <div className='p-3'>
+                <section className=''>
+                    <div className="grid">
                         <ul className="grid gap-3">
                             <li className="flex items-center justify-between">
                                 <span className="text-muted-foreground">
@@ -148,30 +170,34 @@ export function CardDebit(props: CardDebitProps) {
                         </ul>
                     </div>
                 </section>
-                <section className='flex w-1/3 p-3'>
-                    <div className="grid  w-full">
-                        <div className="font-light">Detalhes das Taxas</div>
-                        <ul className="grid gap-3 text-sm font-light">
-                            <li className="flex items-center justify-between">
-                                <span className="text-muted-foreground">
-                                    Taxa de Juros
-                                </span>
-                                <span>{props.feesRate}</span>
-                            </li>
-                            <li className="flex items-center justify-between">
-                                <span className="text-muted-foreground">
-                                    Sistema de Amortização
-                                </span>
-                                <span>{props.amortSystem}</span>
-                            </li>
-                            <li className="flex items-center justify-between">
-                                <span className="text-muted-foreground">
-                                    Prazo
-                                </span>
-                                <span>{props.totalMonth} meses</span>
-                            </li>
-                        </ul>
-
+                <div className='pt-2'>
+                    <Separator className="my-2" />
+                </div>
+                <section className='p-3'>
+                    <div className="grid">
+                        <div className="font-light mb-2">Detalhes das Taxas</div>
+                        <div className='p-2'>
+                            <ul className="grid gap-3 text-sm font-light">
+                                <li className="flex items-center justify-between">
+                                    <span className="text-muted-foreground">
+                                        Taxa de Juros
+                                    </span>
+                                    <span>{props.feesRate}</span>
+                                </li>
+                                <li className="flex items-center justify-between">
+                                    <span className="text-muted-foreground">
+                                        Sistema de Amortização
+                                    </span>
+                                    <span>{props.amortSystem}</span>
+                                </li>
+                                <li className="flex items-center justify-between">
+                                    <span className="text-muted-foreground">
+                                        Prazo
+                                    </span>
+                                    <span>{props.totalMonth} meses</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -179,28 +205,27 @@ export function CardDebit(props: CardDebitProps) {
                 <Progress value={33} />
             </section>
         </CardContent>
-
     )
 }
 
 export function CardParcels(props: CardParcelsProps) {
     return (
-        <section className='grid grid-cols-3 hover:bg-muted rounded-2xl p-2'>
-            <div className='flex col-span-2'>
-                <div className='bg-blend-color-burn'>
-                    <Home className='mt-2 mb-2 mr-1' />
+        <section className='transition ease-in-out duration-500 grid grid-cols-3 border border-white hover:shadow-sm hover:shadow-black/15 rounded-2xl p-2'>
+            <div className='col-span-2'>
+                <div className='flex bg-blend-color-burn'>
+                    <p className='truncate'>• {props.debtName}</p>
                 </div>
                 <div>
-                    <p>{props.debtName}</p>
-                    <p className='font-light text-muted-foreground text-sm'>Parcela {props.debtMonth} de {props.remaningMonth}</p>
+                    <span className='font-light text-muted-foreground text-sm'>Parcela {props.debtMonth}</span><span className='hidden sm:inline sm:ml-1 font-light text-muted-foreground text-sm'>de {props.remaningMonth}</span><span className='font-light text-muted-foreground text-sm ml-3 sm:hidden'>Valor: R$ {props.debtValue}</span>
                 </div>
             </div>
-            <div className='grid justify-items-end'>
+            <div className='grid justify-items-end align-middle'>
+                <p className='hidden sm:inline'>R$ {props.debtValue}</p>
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <Button variant="outline" size="icon" className='mr-2'>
-                                <props.icon className="h-4 w-4" />
+                            <Button variant="outline" size="icon" className='mr-2 text-black hover:shadow-sm hover:shadow-green-800/80 hover:bg-white  hover:text-green-800'>
+                                <HandCoins className='mt-2 mb-2 mr-1 w-4 h-4' />
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -208,6 +233,7 @@ export function CardParcels(props: CardParcelsProps) {
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
+
             </div>
         </section>
     )
@@ -218,7 +244,7 @@ export function CardContent(props: React.HTMLAttributes<HTMLDivElement>) {
         <div
             {...props}
             className={cn(
-                "flex w-full flex-col gap-3 rounded-xl border p-5 shadow-lg",
+                "flex w-full flex-col gap-3 rounded-xl border p-5 shadow-lg bg-white",
                 props.className
             )}
         />

@@ -9,6 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        green: "bg-white text-green-600",
         hunas: "bg-hunas text-primary-foreground hover:bg-hunas/90",
         hunasHover: "hover:bg-hunas/10 hover:text-accent-foreground",
         default: "bg-primary text-primary-foreground hover:bg-primary/90",

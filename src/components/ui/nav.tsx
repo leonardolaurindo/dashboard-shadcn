@@ -1,27 +1,21 @@
-"use client"
-
-import Link from "next/link"
-import { LucideIcon } from "lucide-react"
-
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { TooltipProvider } from "@radix-ui/react-tooltip"
-import { usePathname } from "next/navigation"
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { LucideIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 
 interface NavProps {
-    isCollapsed: boolean
+    isCollapsed: boolean;
     links: {
-        title: string
-        label?: string
-        icon: LucideIcon
-        variant: "hunas" | "hunasHover"
-        href: string
-    }[]
+        title: string;
+        label?: string;
+        icon: LucideIcon;
+        color?: string; // Adicione a propriedade color aqui
+        variant: 'hunas' | 'hunasHover';
+        href: string;
+    }[];
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
@@ -42,24 +36,22 @@ export function Nav({ links, isCollapsed }: NavProps) {
                                         href={link.href}
                                         className={cn(
                                             buttonVariants({
-                                                variant: link.href === pathName ? "hunas" : "hunasHover",
-                                                size: "icon"
+                                                variant: link.href === pathName ? 'hunas' : 'hunasHover',
+                                                size: 'icon',
                                             }),
-                                            "h-9 w-9",
-                                            link.variant === "hunas" &&
-                                            "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
+                                            'h-9 w-9',
+                                            link.variant === 'hunas' &&
+                                            'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white'
                                         )}
                                     >
-                                        <link.icon className="h-4 w-4" />
+                                        <link.icon className={`h-4 w-4 ${link.color}`} /> {/* Adicionando a cor ao className */}
                                         <span className="sr-only">{link.title}</span>
                                     </Link>
                                 </TooltipTrigger>
                                 <TooltipContent side="right" className="flex items-center gap-4">
                                     {link.title}
                                     {link.label && (
-                                        <span className="ml-auto text-muted-foreground">
-                                            {link.label}
-                                        </span>
+                                        <span className="ml-auto text-muted-foreground">{link.label}</span>
                                     )}
                                 </TooltipContent>
                             </Tooltip>
@@ -68,20 +60,22 @@ export function Nav({ links, isCollapsed }: NavProps) {
                                 key={index}
                                 href={link.href}
                                 className={cn(
-                                    buttonVariants({ variant: link.href === pathName ? "hunas" : "hunasHover", size: "sm" }),
-                                    link.variant === "hunasHover" &&
-                                    "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
-                                    "justify-start"
+                                    buttonVariants({
+                                        variant: link.href === pathName ? 'hunas' : 'hunasHover',
+                                        size: 'sm',
+                                    }),
+                                    link.variant === 'hunasHover' &&
+                                    'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
+                                    'justify-start '
                                 )}
                             >
-                                <link.icon className="mr-2 h-4 w-4" />
+                                <link.icon className={`mr-2 h-4 w-4 ${link.color}`} /> {/* Adicionando a cor ao className */}
                                 {link.title}
                                 {link.label && (
                                     <span
                                         className={cn(
-                                            "ml-auto",
-                                            link.variant === "hunasHover" &&
-                                            "text-background dark:text-white"
+                                            'ml-auto',
+                                            link.variant === 'hunasHover' && 'text-background dark:text-white'
                                         )}
                                     >
                                         {link.label}
@@ -92,6 +86,6 @@ export function Nav({ links, isCollapsed }: NavProps) {
                     )}
                 </nav>
             </div>
-        </TooltipProvider >
-    )
+        </TooltipProvider>
+    );
 }

@@ -1,40 +1,32 @@
-import CardInfo from "@/components/Cards";
+import CardInfo, { CardInfoSmall } from "@/components/Cards";
 import { CardContent, CardDebit, CardDebitProps, CardParcels, CardParcelsProps, CardProps } from "@/components/Cards";
 import PageTitle from "@/components/PageTitle";
-import { Activity, CreditCard, DollarSign, CalendarDays, HandCoins, TrendingDown, TrendingUp } from "lucide-react";
+import { Activity, CreditCard, DollarSign, CalendarDays, HandCoins } from "lucide-react";
 
 const cardData: CardProps[] = [
   {
-    label: "Receitas",
-    amount: "+ R$548,32",
-    description: "aumento de 0,8%",
-    icon: TrendingUp,
-    style: "shadow-green-600/30",
-    color: "text-green-600",
+    label: "Total em Dívidas",
+    amount: "R$9.231,89",
+    description: "Uma diminuição de 0,8%",
+    icon: DollarSign,
+    style: "bg-gray-100",
+    color: "text-hunas",
   },
   {
-    label: "Despesas",
-    amount: "- R$ 784,35",
-    description: "3,2% total de receitas",
-    icon: TrendingDown,
-    style: "shadow-rose-700/30",
-    color: "text-rose-700"
+    label: "Total em Parcelas",
+    amount: "R$ 784,35",
+    description: "3,2% do total das dividsa",
+    icon: CalendarDays,
+    style: "bg-gray-100",
+    color: "text-hunas",
   },
   {
-    label: "Total de Dividas",
-    amount: "R$ 3.874,52",
-    description: "uma diminuição de 10%",
+    label: "Parcelas Restantes",
+    amount: "32",
+    description: "Você já quitou 30%",
     icon: CreditCard,
-    style: "shadow-hunas/30",
-    color: "text-hunas"
-  },
-  {
-    label: "Mais um Card",
-    amount: "+00",
-    description: "+00,0% mais um dado",
-    icon: Activity,
-    style: "shadow-hunas/30",
-    color: "text-hunas"
+    style: "bg-gray-100",
+    color: "text-hunas",
   },
 ];
 
@@ -91,16 +83,15 @@ const parcelsData: CardParcelsProps[] = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <PageTitle title="Dashboard" />
-      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all
-      sm:grid-cols-2
-      xl:grid-cols-4">
+    <div className="flex flex-col gap-2 w-full">
+      <PageTitle title="Dívidas" />
+      <section className="grid w-full grid-cols-1 gap-1  transition-all
+      sm:gap-x-4
+      sm:grid-cols-3">
         {cardData.map((d, i) =>
-          <CardInfo
+          <CardInfoSmall
             key={i}
             amount={d.amount}
-            description={d.description}
             icon={d.icon}
             label={d.label}
             style={d.style}
@@ -108,7 +99,8 @@ export default function Home() {
           />
         )}
       </section>
-      <section className="grid grid-cols-1 gap-4 pt-5
+      <section className="grid grid-cols-1 gap-1 pt-2
+      sm:pt-5
       lg:grid-cols-3">
 
         <div className="col-span-2">
